@@ -1,0 +1,181 @@
+{
+  "configVersion": 1,
+  "debug": {
+    "logToFile": true
+  },
+  "realtime": {
+    "staleDataThresholdSeconds": 2,
+    "staleCheckIntervalMs": 500
+  },
+  "deviations": {
+    "o2WindowSize": 25,
+    "o2MinRangeV": 0.06,
+    "stftRunThreshold": 25,
+    "lowTimingThreshold": 20,
+    "knockThreshold": 10
+  },
+  "bluetooth": {
+    "scanTimeoutSeconds": 10,
+    "obdNameKeywords": ["obd", "elm327", "elm", "vgate"]
+  },
+  "polling": {
+    "profiles": {
+      "default": {
+        "everyNth": { "important": 2, "normal": 3, "low": 4 },
+        "groups": {
+          "critical": ["rpm", "speed"],
+          "important": [
+            "shortTermFuelTrimBank1",
+            "longTermFuelTrimBank1",
+            "timingAdvance",
+            "engineLoad",
+            "throttlePosition"
+          ],
+          "normal": [
+            "coolantTemp",
+            "intakeAirTemp",
+            "fuelSystemStatus",
+            "fuelPressure",
+            "intakeManifoldPressure"
+          ],
+          "low": [
+            "shortTermFuelTrimBank2",
+            "longTermFuelTrimBank2",
+            "o2SensorVoltageBank1Sensor1",
+            "o2SensorVoltageBank1Sensor2",
+            "knockCorrection"
+          ]
+        }
+      }
+    }
+  },
+  "norms": {
+    "closedLoopCodes": [2, 16],
+    "params": {
+      "shortTermFuelTrimBank1": { "min": -10, "max": 10 },
+      "longTermFuelTrimBank1": { "min": -10, "max": 10 },
+      "shortTermFuelTrimBank2": { "min": -10, "max": 10 },
+      "longTermFuelTrimBank2": { "min": -10, "max": 10 },
+      "timingAdvance": { "min": -10, "max": 45 },
+      "coolantTemp": { "min": 70, "max": 110 },
+      "intakeAirTemp": { "min": -20, "max": 100 },
+      "fuelPressure": { "min": 250, "max": 450 },
+      "intakeManifoldPressure": { "min": 0, "max": 110 },
+      "engineLoad": { "min": 0, "max": 100 },
+      "throttlePosition": { "min": 0, "max": 100 },
+      "knockCorrection": { "min": 0, "max": 100 }
+    }
+  },
+  "analysis": {
+    "qualityFilterDefaults": { "minCoolant": 80, "minLoad": 40, "minRpm": 1500, "minValidRows": 10 },
+    "octaneFilterDefaults": {
+      "minCoolant": 80,
+      "minLoad": 40,
+      "minRpm": 1500,
+      "maxRpm": 4000,
+      "minThrottle": 25.0,
+      "minOctaneRows": 30
+    },
+    "scoring": {
+      "stftWeight": 1.5,
+      "stftClampMax": 15,
+      "ltftWeight": 3.0,
+      "ltftClampMax": 30,
+      "timingMinBadThreshold": -5.0,
+      "timingBadPenalty": 15,
+      "o2StdDevMin": 0.05,
+      "o2LowActivityPenalty": 5,
+      "fuelPressureMeanMin": 300,
+      "fuelPressureLowPenalty": 10,
+      "knockEventPenalty": 2,
+      "knockPenaltyClampMax": 30
+    }
+  },
+  "elm": {
+    "commandTimeoutMs": 8000,
+    "minDelayBetweenObdCommandsMs": 40,
+    "readLoopIntervalMs": 300,
+    "maxConsecutiveErrors": 5
+  },
+  "logging": {
+    "isolateHandshakeTimeoutSeconds": 5
+  },
+  "foreground": {
+    "serviceId": 256,
+    "repeatIntervalMs": 60000,
+    "channel": {
+      "id": "obd_logging_channel",
+      "name": "Запись лога OBD",
+      "description": "Уведомление при записи лог-файла в фоне"
+    }
+  },
+  "paths": {
+    "logFolderName": "OBDReader",
+    "logFileName": "obd_log.csv",
+    "logFilePattern": "obd_log_{ts}.csv",
+    "androidPreferredLogDir": "/storage/emulated/0/Documents/OBDReader"
+  },
+  "strings": {
+    "staleBannerText": "Нет новых данных более {seconds} сек. Возможна задержка обмена с адаптером.",
+    "logErrorBannerText": "Ошибка записи лог‑файла. Проверьте разрешения и доступ к папке.",
+    "appDescription": "OBD Reader — приложение для смартфона, которое подключается к автомобилю через адаптер ELM327 (Bluetooth BLE или классический SPP) и читает данные с блока управления двигателем (ЭБУ).",
+    "appPurpose": "Назначение: помощь в оценке качества топлива и состояния топливной системы по параметрам в реальном времени (топливные коррекции, угол зажигания, лямбда-зонды и др.). Данные можно сохранять в CSV-лог для последующего анализа.",
+    "paramDisplayNames": {
+      "shortTermFuelTrimBank1": "STFT Bank 1",
+      "longTermFuelTrimBank1": "LTFT Bank 1",
+      "shortTermFuelTrimBank2": "STFT Bank 2",
+      "longTermFuelTrimBank2": "LTFT Bank 2",
+      "timingAdvance": "Угол опережения зажигания",
+      "coolantTemp": "Температура ОЖ",
+      "intakeAirTemp": "Температура воздуха на впуске",
+      "fuelPressure": "Давление топлива",
+      "intakeManifoldPressure": "Давление во впуске",
+      "engineLoad": "Нагрузка двигателя",
+      "throttlePosition": "Положение дросселя",
+      "o2SensorVoltageBank1Sensor1": "O₂ B1S1",
+      "o2SensorVoltageBank1Sensor2": "O₂ B1S2",
+      "fuelSystemStatus": "Статус топливной системы",
+      "knockCorrection": "Коррекция по детонации"
+    },
+    "normsDescriptions": {
+      "shortTermFuelTrimBank1": "Норма: коррекции колеблются вокруг 0%. Типично ~-10%…+10%; кратковременные пики STFT до ±20–25% допустимы. Устойчивые значения |LTFT| > 5–10% или |STFT| > 10–15% — повод проверить двигатель и качество топлива.",
+      "longTermFuelTrimBank1": "Норма: коррекции колеблются вокруг 0%. Типично ~-10%…+10%; кратковременные пики STFT до ±20–25% допустимы. Устойчивые значения |LTFT| > 5–10% или |STFT| > 10–15% — повод проверить двигатель и качество топлива.",
+      "timingAdvance": "Норма: 0-40° до ВМТ",
+      "coolantTemp": "Норма: 85-105°C",
+      "intakeAirTemp": "Норма: близка к окружающей + нагрев",
+      "fuelPressure": "Норма: 300-400 kPa",
+      "intakeManifoldPressure": "Норма: 20-40 kPa (ХХ), 90-100 kPa (нагрузка)",
+      "engineLoad": "Норма: 0-100%",
+      "throttlePosition": "Норма: 0-5% (ХХ), до 100%",
+      "o2SensorVoltageBank1Sensor1": "Норма: активные колебания напряжения (~0.1–0.9 В). Отклонение — стабильное значение без колебаний.",
+      "o2SensorVoltageBank1Sensor2": "Норма: активные колебания напряжения (~0.1–0.9 В). Отклонение — стабильное значение без колебаний.",
+      "fuelSystemStatus": "Норма: Closed loop (коды 2 или 16)",
+      "knockCorrection": "Норма: стабильные значения"
+    },
+    "analysis": {
+      "qualityLabelExcellent": "Отличное топливо",
+      "qualityLabelNormal": "Нормальное топливо",
+      "qualityLabelDoubtful": "Сомнительное топливо",
+      "qualityLabelBad": "Плохое топливо",
+      "qualityNotCalculatedEmpty": "Не определена (файл пуст)",
+      "qualityNotCalculatedHeaderOnly": "Не определена (файл пуст или только заголовок)",
+      "qualityNotCalculatedNotEnoughData": "Не определена (недостаточно валидных данных)",
+      "octaneDetectedUnknown": "неопределено",
+      "octaneNotEnoughData": "Недостаточно данных под нагрузкой для оценки октанового числа.",
+      "octaneMessage92": "Двигатель работает на границе детонационной стойкости.",
+      "octaneMessage95": "Оптимальное октановое поведение для типичных моторов.",
+      "octaneMessage98": "Топливо с повышенной детонационной стойкостью.",
+      "octaneMessageDefault": "Недостаточно данных для уверенного вывода."
+    },
+    "foreground": {
+      "notificationTitle": "OBD Reader",
+      "notificationText": "Идёт запись лог-файла",
+      "stopButtonText": "Остановить запись"
+    },
+    "logging": {
+      "noLogFileYet": "No log file created yet.",
+      "errorReadingLog": "Error reading log: {error}"
+    }
+  },
+  "remoteConfigUrl": null
+}
