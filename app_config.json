@@ -43,7 +43,7 @@
             "longTermFuelTrimBank2",
             "o2SensorVoltageBank1Sensor1",
             "o2SensorVoltageBank1Sensor2",
-            "knockCorrection"
+            "auxiliaryInputStatus"
           ]
         }
       }
@@ -63,7 +63,7 @@
       "intakeManifoldPressure": { "min": 0, "max": 110 },
       "engineLoad": { "min": 0, "max": 100 },
       "throttlePosition": { "min": 0, "max": 100 },
-      "knockCorrection": { "min": 0, "max": 100 }
+      "auxiliaryInputStatus": { "min": 0, "max": 100 }
     }
   },
   "analysis": {
@@ -144,7 +144,7 @@
       "o2SensorVoltageBank1Sensor1": "O₂ B1S1",
       "o2SensorVoltageBank1Sensor2": "O₂ B1S2",
       "fuelSystemStatus": "Статус топливной системы",
-      "knockCorrection": "Коррекция по детонации"
+      "auxiliaryInputStatus": "Статус доп. входа"
     },
     "normsDescriptions": {
       "shortTermFuelTrimBank1": "Норма: коррекции колеблются вокруг 0%. Типично ~-10%…+10%; кратковременные пики STFT до ±20–25% допустимы. Устойчивые значения |LTFT| > 5–10% или |STFT| > 10–15% — повод проверить двигатель и качество топлива.",
@@ -159,7 +159,7 @@
       "o2SensorVoltageBank1Sensor1": "Норма: активные колебания напряжения (~0.1–0.9 В). Отклонение — стабильное значение без колебаний.",
       "o2SensorVoltageBank1Sensor2": "Норма: активные колебания напряжения (~0.1–0.9 В). Отклонение — стабильное значение без колебаний.",
       "fuelSystemStatus": "Норма: Closed loop (коды 2 или 16)",
-      "knockCorrection": "Норма: стабильные значения"
+      "auxiliaryInputStatus": "Норма: стабильные значения. На части ЭБУ — коррекция детонации (PID опциональный)."
     },
     "analysis": {
       "qualityLabelExcellent": "Отличное топливо",
@@ -217,12 +217,11 @@
         "coolantTemp": "Норма: рабочая температура обычно ~85–105 °C.",
         "intakeAirTemp": "Обычно близка к температуре окружающей среды + нагрев под капотом.",
         "fuelSystemStatus": "Норма для анализа топлива — closed loop (коды 2 или 16).",
-        "knockCorrection": "Рост значения/частые изменения могут говорить о плохом бензине."
+        "auxiliaryInputStatus": "На части ЭБУ — коррекция детонации. Для анализа октана опционален: при наличии данных учитывается."
       },
       "fileTab": {
         "title": "Управление файлами лога",
         "folderLabel": "Папка записи файлов лога",
-        "refreshPath": "Обновить путь",
         "openFolder": "Открыть папку в проводнике",
         "openCurrentLog": "Открыть текущий файл лога",
         "pathNotSet": "Путь к папке не указан",
